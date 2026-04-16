@@ -9,7 +9,8 @@ app.use('/tasks', tasksRoute);
 // ❌ Vulnerability: unsanitized input (simulates bad practice)
 app.get('/search', (req, res) => {
   const query = req.query.q;
-  res.send(`You searched for: ${query}`);
+  //res.send(`You searched for: ${query}`);
+  res.json({ query }); //fix
 });
 
 app.get('/', (req, res) => {
