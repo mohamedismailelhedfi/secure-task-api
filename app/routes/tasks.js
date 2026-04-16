@@ -2,7 +2,9 @@ const express = require('express');
 const router = express.Router();
 const fs = require('fs');
 
-const DATA_FILE = './data/tasks.json';
+const path = require('path');
+
+const DATA_FILE = path.join(__dirname, '../data/tasks.json');
 
 // GET tasks
 router.get('/', (req, res) => {
