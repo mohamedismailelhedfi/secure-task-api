@@ -23,3 +23,14 @@ jobs:
       run: |
           cd app 
           docker build -t secure-api .
+
+    - name: RUN Semgrep #Semgrep is a fast, open-source, static analysis tool that searches code, finds bugs, and enforces secure guardrails and coding standards. Semgrep supports 30+ languages and can run in an IDE, as a pre-commit check, and as part of CI/CD workflows.
+      uses: returntocorp/semgrep-action@v1
+
+    - name: Scan Docker image #Trivy is an open-source, all-in-one vulnerability scanner developed by Aqua Security that identifies security issues in container images, filesystems, Git repositories, and Kubernetes clusters.  It primarily scans for vulnerabilities (CVEs), secrets, misconfigurations, and license risks within software packages and OS libraries. 
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: secure-api
+
+    - name: Detect secrets #Gitleaks is a tool for detecting secrets like passwords, API keys, and tokens in git repos, files, and whatever else you wanna throw at it via stdin. If you wanna learn more about how the detection engine works check out this blog: Regex is (almost) all you need.
+      uses: zricethezav/gitleaks-action@master
