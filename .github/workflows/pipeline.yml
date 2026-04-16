@@ -14,10 +14,11 @@ jobs:
           cd app
           npm install
 
-    - name: Run app test
-      run: | 
+    - name: Run tests
+      run: |
           cd app
-          node index.js & sleep 5
+          npm install
+          npm test
     
     - name: Build Docker image
       run: |
