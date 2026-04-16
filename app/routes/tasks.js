@@ -14,15 +14,18 @@ router.get('/', (req, res) => {
 
 // POST task
 router.post('/', (req, res) => {
-  const tasks = JSON.parse(fs.readFileSync(DATA_FILE));
+  try {
+    const tasks = JSON.parse(fs.readFileSync(DATA_FILE));
 
-  // ❌ Vulnerability: no validation
-  const newTask = req.body;
+    const newTask = req.body; //vulnerability
 
-  tasks.push(newTask);
-  fs.writeFileSync(DATA_FILE, JSON.stringify(tasks, null, 2));
+    tasks.push(newTask);
+    fs.writeFileSync(DATA_FILE, JSON.stringify(tasks, null, 2));
 
-  res.status(201).json(newTask);
+    res.status(201).json(newTask);
+
+  } catch (err) {
+    console.error("ERROR:", err); // 👈 IMPORTANT
+    res.status(500).json({ error: err.message });
+  }
 });
-
-module.exports = router;
